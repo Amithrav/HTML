@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Math Quiz Game</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+  <style>
+    .game-box {
+      border: 3px solid #0078D4;
+      border-radius: 12px;
+      padding: 30px;
+      background-color: #f8f9fa;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="game-box w-50 mx-auto shadow">
+      <h2 class="mb-4">🧠 Math Quiz Game</h2>
+      <p id="question" class="fs-4 fw-bold"></p>
+      <input type="number" id="answerInput" class="form-control mb-3" placeholder="Enter your answer">
+      <button class="btn btn-primary w-100 mb-3" onclick="checkAnswer()">Submit Answer</button>
+      <p id="feedback" class="fs-5"></p>
+      <p id="scoreDisplay" class="fw-bold">Score: 0</p>
+      <button class="btn btn-secondary w-100" onclick="generateQuestion()">Next Question</button>
+    </div>
+  </div>
+
+  <script>
+    let correctAnswer = 0;
+    let score = 0;
+
+    function generateQuestion() {
+      const num1 = Math.floor(Math.random() * 20) + 1;
+      const num2 = Math.floor(Math.random() * 20) + 1;
+      const operators = ['+', '-', '*'];
+      const operator = operators[Math.floor(Math.random() * operators.length)];
+
+      let questionText = `${num1} ${operator} ${num2}`;
+      correctAnswer = eval(questionText);
+
+      document.getElementById("question").textContent = `Solve: ${questionText}`;
+      document.getElementById("answerInput").value = '';
+      document.getElementById("feedback").textContent = '';
+    }
+
+    function checkAnswer() {
+      const userAnswer = parseFloat(document.getElementById("answerInput").value);
+      const feedback = document.getElementById("feedback");
+
+      if (isNaN(userAnswer)) {
+        feedback.textContent = "Please enter a valid number.";
+        feedback.style.color = "red";
+        return;
+      }
+
+      if (userAnswer === correctAnswer) {
+        score++;
+        feedback.textContent = "✅ Correct!";
+        feedback.style.color = "green";
+      } else {
+        feedback.textContent = `❌ Incorrect. The correct answer was ${correctAnswer}.`;
+        feedback.style.color = "red";
+      }
+
+      document.getElementById("scoreDisplay").textContent = `Score: ${score}`;
+    }
+
+    generateQuestion(); // Start with a question
+  </script>
+</body>
+</html>

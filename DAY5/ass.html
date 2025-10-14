@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Advanced Music Player</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+  <style>
+    body {
+      background: linear-gradient(to right, #fa9b5b, #6cd5f0);
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .player-box {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 30px;
+      background: #ffffffcc;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .track-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+    .controls button {
+      margin: 0 10px;
+    }
+    .carousel-item img {
+      max-height: 250px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    .playlist-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    .playlist-item:hover {
+      background-color: #e2e6ea;
+    }
+    .fav-btn {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: #dc3545;
+      cursor: pointer;
+    }
+    .fav-btn.active {
+      color: #e60023;
+    }
+  </style>
+</head>
+<body>
+  <div class="player-box shadow">
+    <h2 class="mb-4">🎵 Music Player</h2>
+
+    <div id="coverCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="jo tum.jpg" class="d-block w-100" alt="Track 1">
+        </div>
+        <div class="carousel-item">
+          <img src="nesa.jpg" class="d-block w-100" alt="Track 2">
+        </div>
+      </div>
+    </div>
+
+    <p class="track-title" id="trackTitle">No track playing</p>
+    <audio id="audioPlayer" src="" controls class="w-100 mb-3"></audio>
+
+    <div class="controls mb-4">
+      <button class="btn btn-success" onclick="playTrack(0)">Play Track 1</button>
+      <button class="btn btn-primary" onclick="playTrack(1)">Play Track 2</button>
+      <button class="btn btn-danger" onclick="stopTrack()">Stop</button>
+    </div>
+
+    <h5 class="mb-3">🎶 Playlist</h5>
+    <div id="playlist">
+  
+    </div>
+  </div>
+
+  <script>
+    const tracks = [
+      {
+        title: "Track 1 - Jo Tum Mere Ho",
+        src: "jo tum.mp3",
+        cover: "cover1.jpg",
+        favorite: false
+      },
+      {
+        title: "Track 2 - Nesamaguren",
+        src: "Nesamaguren.mp3",
+        cover: "cover2.jpg",
+        favorite: false
+      }
+    ];
+
+    const audio = document.getElementById("audioPlayer");
+    const title = document.getElementById("trackTitle");
+    const playlist = document.getElementById("playlist");
+    const carousel = document.querySelector("#coverCarousel .carousel-inner");
+
+    function playTrack(index) {
+      audio.src = tracks[index].src;
+      audio.play();
+      title.textContent = tracks[index].title;
+
+      // Update carousel
+      [...carousel.children].forEach((item, i) => {
+        item.classList.toggle("active", i === index);
+      });
+    }
+
+    function stopTrack() {
+      audio.pause();
+      audio.currentTime = 0;
+      title.textContent = "No track playing";
+    }
+
+    function toggleFavorite(index) {
+      tracks[index].favorite = !tracks[index].favorite;
+      renderPlaylist();
+    }
+
+    function renderPlaylist() {
+      playlist.innerHTML = "";
+      tracks.forEach((track, index) => {
+        const item = document.createElement("div");
+        item.className = "playlist-item";
+
+        const name = document.createElement("span");
+        name.textContent = track.title;
+        name.style.cursor = "pointer";
+        name.onclick = () => playTrack(index);
+
+        const fav = document.createElement("button");
+        fav.className = "fav-btn" + (track.favorite ? " active" : "");
+        fav.innerHTML = track.favorite ? "❤️" : "🤍";
+        fav.onclick = () => toggleFavorite(index);
+
+        item.appendChild(name);
+        item.appendChild(fav);
+        playlist.appendChild(item);
+      });
+    }
+
+    renderPlaylist();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

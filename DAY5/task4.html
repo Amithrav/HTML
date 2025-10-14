@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mood Ring Simulator</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+  <style>
+    body {
+      background: linear-gradient(to right, #c9d6ff, #e2e2e2);
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .ring-box {
+      max-width: 500px;
+      margin: 80px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .ring {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 20px auto;
+      border: 6px solid #333;
+      transition: background-color 0.5s ease;
+    }
+    .mood {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="ring-box shadow">
+    <h2 class="mb-4">💍 Mood Ring</h2>
+    <div id="ring" class="ring"></div>
+    <p id="moodText" class="mood">Tap the ring to reveal your mood</p>
+    <button class="btn btn-dark mt-3" onclick="readMood()">Read Mood</button>
+  </div>
+
+  <script>
+    const moods = [
+      { color: "#00FFFF", text: "Excited ✨" },
+      { color: "#FF69B4", text: "Romantic 💖" },
+      { color: "#FFD700", text: "Happy 😊" },
+      { color: "#FF4500", text: "Energetic 🔥" },
+      { color: "#8A2BE2", text: "Creative 🎨" },
+      { color: "#708090", text: "Calm 😌" },
+      { color: "#2F4F4F", text: "Mysterious 🕵️" },
+      { color: "#DC143C", text: "Passionate ❤️" },
+      { color: "#228B22", text: "Balanced 🧘" },
+      { color: "#000000", text: "Moody 😶" }
+    ];
+
+    function readMood() {
+      const mood = moods[Math.floor(Math.random() * moods.length)];
+      document.getElementById("ring").style.backgroundColor = mood.color;
+      document.getElementById("moodText").textContent = mood.text;
+    }
+  </script>
+</body>
+</html>

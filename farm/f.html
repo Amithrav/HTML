@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Crop Planner</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="f.css">
+</head>
+<body>
+    <style>
+  body {
+    background-color: rgb(21, 33, 56);
+  }
+</style>
+
+  <div class="planner">
+    <h3 class="text-center">🌱 Crop Planner</h3>
+    <div class="weather">🌤️ Current Weather in Bengaluru South: <strong>26°C</strong>, Mostly Cloudy</div>
+
+    <div class="mb-3">
+      <label for="cropSelect" class="form-label">Select Crop</label>
+      <select id="cropSelect" class="form-select">
+        <option value="">-- Choose a crop --</option>
+        <option value="rice">Rice</option>
+        <option value="wheat">Wheat</option>
+        <option value="tomato">Tomato</option>
+        <option value="potato">Potato</option>
+        <option value="maize">Maize</option>
+        <option value="sugarcane">Sugarcane</option>
+        <option value="cotton">Cotton</option>
+        <option value="soybean">Soybean</option>
+        <option value="onion">Onion</option>
+</select>
+
+        
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="plantDate" class="form-label">Planting Date</label>
+      <input type="date" id="plantDate" class="form-control">
+    </div>
+
+    <button class="btn btn-success w-100" onclick="calculateHarvest()">Calculate Harvest Date</button>
+
+    <div id="resultBox" class="result d-none">
+      <h5>🌾 Crop Plan</h5>
+      <p id="cropInfo"></p>
+      <p id="harvestDate"></p>
+      <p id="plantingWindow" class="text-primary fw-bold"></p>
+
+      <div class="graph">
+        <h6>📈 Growth Progress</h6>
+        <div class="progress">
+          <div id="growthBar" class="progress-bar bg-success" role="progressbar" style="width: 0%">0%</div>
+        </div>
+        <div class="mt-3">
+          <p><strong>Planting Date:</strong> <span id="plantDateDisplay"></span></p>
+          <p><strong>Estimated Harvest Date:</strong> <span id="harvestDateDisplay"></span></p>
+          <p><strong>Days Elapsed:</strong> <span id="daysElapsedDisplay"></span> / <span id="totalDaysDisplay"></span> days</p>
+        </div>
+        <p id="seasonTip" class="mt-2 text-muted"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="f.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
